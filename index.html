@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#9fdcf5">
+<title>Побег из питомника</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div class="hud-top">
+      <div class="chip"><b id="hCoins">0</b> 🪙</div>
+      <div class="chip score" id="hScore">0</div>
+      <button id="pauseBtn" class="round" aria-label="Пауза">❚❚</button>
+    </div>
+    <div id="hBoosts"></div>
+  </div>
+  <div id="toast"></div>
+
+  <section id="menu" class="screen">
+    <div class="top"><div class="chip"><b class="cc">0</b> 🪙</div><button class="round" data-mute="1">🔊</button></div>
+    <h1>Побег<br>из питомника</h1>
+    <div class="spacer"></div>
+    <div id="mName" class="nameplate"></div>
+    <div id="startBoosts" class="boostrow"></div>
+    <button id="playBtn" class="play">Бежать!</button>
+    <div class="row2">
+      <button class="tile" data-go="shop">🛍️<span>Магазин</span></button>
+      <button class="tile" data-go="missions">🎯<span>Задания</span></button>
+    </div>
+  </section>
+
+  <section id="shop" class="screen hidden"></section>
+  <section id="missions" class="screen hidden"></section>
+
+  <section id="pause" class="screen dim hidden">
+    <h2>Пауза</h2>
+    <button class="round" data-mute="1">🔊</button>
+    <div id="pauseMissions" class="mlist"></div>
+    <button class="play" id="resumeBtn">Продолжить</button>
+    <button class="tile wide" id="pauseMenuBtn">В меню</button>
+  </section>
+
+  <section id="over" class="screen dim hidden">
+    <h2>Поймали!</h2>
+    <div class="card big">
+      <div>Очки <b id="oScore">0</b></div>
+      <div>Монеты <b id="oCoins">0</b> 🪙</div>
+      <div>Рекорд <b id="oBest">0</b></div>
+    </div>
+    <button class="play" id="againBtn">Ещё раз</button>
+    <button class="tile wide" data-go="menu">В меню</button>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/models.js"></script>
+<script src="js/world.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

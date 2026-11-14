@@ -1,0 +1,94 @@
+:root{--sky:#9fdcf5;--org:#ff8a1f;--orgd:#c75f00;--navy:#23304a;--cream:#fff6e6;--teal:#2bb6a8;--red:#e8483f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--sky);touch-action:none;
+  font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;color:var(--navy)}
+button{font-family:inherit;color:inherit;border:0;cursor:pointer}
+#app{position:fixed;inset:0;overflow:hidden;background:var(--sky)}
+#game{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hidden{display:none!important}
+
+/* Верхняя панель */
+.top,.hud-top{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.hud-top{padding:calc(max(env(safe-area-inset-top,0px),var(--top-min,0px)) + 8px) 14px 0}
+#hud{position:absolute;inset:0 0 auto 0;pointer-events:none}
+#hud button{pointer-events:auto}
+.chip{background:var(--navy);color:#fff;font-weight:800;font-size:19px;padding:2px 14px;border-radius:22px;
+  display:flex;align-items:center;gap:6px;min-height:40px}
+.chip.score{flex:1;justify-content:center;font-size:26px}
+.round{width:44px;height:44px;border-radius:50%;background:var(--org);color:#fff;font-weight:800;font-size:16px;
+  box-shadow:0 4px 0 var(--orgd)}
+.round:active,.play:active,.tile:active{transform:translateY(3px);box-shadow:none}
+#hBoosts{display:flex;gap:8px;padding:10px 14px}
+.hb{background:rgba(255,255,255,.9);border-radius:14px;padding:2px 10px;font-weight:800;font-size:16px}
+#toast{position:absolute;left:50%;top:22%;transform:translateX(-50%);background:var(--navy);color:#fff;
+  font-weight:800;padding:8px 18px;border-radius:18px;opacity:0;transition:opacity .25s;pointer-events:none;
+  white-space:nowrap;z-index:9}
+#toast.on{opacity:1}
+
+/* Экраны */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px;pointer-events:none;
+  padding:calc(max(env(safe-area-inset-top,0px),var(--top-min,0px)) + 8px) 16px calc(env(safe-area-inset-bottom,0px) + 18px)}
+.screen button,.screen .card,.screen .panel,.screen .chip{pointer-events:auto}
+.screen.dim{background:rgba(35,48,74,.6);align-items:center;justify-content:center;pointer-events:auto}
+.spacer{flex:1}
+h1{margin:6px 0 0;text-align:center;font-size:clamp(42px,13vw,56px);line-height:.95;font-weight:800;color:#fff;
+  text-shadow:0 4px 0 var(--org),0 8px 0 rgba(35,48,74,.35)}
+h2{margin:0;font-size:40px;font-weight:800;color:#fff;text-shadow:0 3px 0 var(--org)}
+.nameplate{align-self:center;background:var(--cream);padding:2px 18px;border-radius:16px;font-weight:800;font-size:20px}
+.play{border-radius:28px;padding:10px 40px;font-size:28px;font-weight:800;background:var(--org);color:#fff;
+  box-shadow:0 6px 0 var(--orgd);min-height:60px;width:100%}
+.play.dis{background:#9aa3b2;box-shadow:0 6px 0 #6f7889}
+.row2{display:flex;gap:12px}
+.tile{flex:1;min-height:60px;border-radius:20px;background:var(--cream);font-size:22px;font-weight:800;
+  box-shadow:0 5px 0 rgba(35,48,74,.25);display:flex;align-items:center;justify-content:center;gap:8px}
+.tile.wide{flex:none;width:100%}
+.tile span{font-size:18px}
+.boostrow{display:flex;gap:10px;justify-content:center}
+.bchip{width:62px;height:62px;border-radius:18px;background:var(--cream);font-size:26px;position:relative;
+  box-shadow:0 4px 0 rgba(35,48,74,.25)}
+.bchip.on{background:#ffe08a;outline:4px solid var(--org)}
+.bchip small{position:absolute;right:4px;bottom:0;font-size:15px;font-weight:800}
+
+/* Магазин */
+.tabs{display:flex;background:var(--navy);border-radius:22px;padding:3px}
+.tabs button{background:none;color:#fff;font-weight:800;font-size:17px;padding:2px 14px;border-radius:18px;min-height:36px}
+.tabs button.on{background:var(--org)}
+.navs{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.arrow{width:50px;height:50px;border-radius:50%;background:var(--cream);font-size:30px;font-weight:800;
+  box-shadow:0 4px 0 rgba(35,48,74,.25);line-height:1}
+.panel{background:var(--cream);border-radius:28px;padding:14px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 -4px 0 rgba(35,48,74,.12)}
+.panel h3{margin:0;font-size:26px;font-weight:800;line-height:1}
+.panel p{margin:0;font-size:15px;opacity:.8}
+.costs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cos{background:#fff;border-radius:16px;padding:6px 4px;font-size:13px;font-weight:700;line-height:1.1;
+  display:flex;flex-direction:column;align-items:center;gap:2px;border:3px solid transparent}
+.cos i{width:26px;height:26px;border-radius:50%;display:block}
+.cos small{font-size:13px;opacity:.75}
+.cos.on{border-color:var(--teal)}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots i{width:8px;height:8px;border-radius:50%;background:#c9c2b3}
+.dots i.on{background:var(--org)}
+.list{display:flex;flex-direction:column;gap:10px;margin-top:6px;overflow:auto}
+.card{background:var(--cream);border-radius:20px;padding:12px 14px;display:flex;align-items:center;gap:12px;font-weight:700}
+.card .ico{font-size:34px}
+.card .grow{flex:1;line-height:1.1}
+.card .grow small{display:block;font-weight:500;opacity:.75;font-size:14px}
+.card .buy{background:var(--org);color:#fff;border-radius:16px;padding:2px 14px;font-weight:800;font-size:18px;
+  min-height:44px;box-shadow:0 4px 0 var(--orgd)}
+.card.big{flex-direction:column;align-items:stretch;font-size:24px;min-width:260px}
+.card.big b{float:right}
+.mlist{display:flex;flex-direction:column;gap:8px;width:100%}
+.bar{height:10px;background:#e6dcc6;border-radius:6px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--teal)}
+
+.screen.dim [data-mute]{position:absolute;top:calc(max(env(safe-area-inset-top,0px),var(--top-min,0px)) + 8px);right:16px}
+
+/* Формат iPhone 17 Pro: 402 x 874 pt */
+@media (min-width:600px),(min-aspect-ratio:3/4){
+  html,body{background:#1d1218}
+  #app{--top-min:59px;inset:auto;left:50%;top:50%;height:min(874px,96dvh);aspect-ratio:402/874;width:auto;
+    transform:translate(-50%,-50%);border-radius:55px;box-shadow:0 0 0 10px #0d0709,0 20px 60px rgba(0,0,0,.6)}
+  #app::after{content:"";position:absolute;top:11px;left:50%;width:120px;height:34px;margin-left:-60px;
+    background:#000;border-radius:20px;pointer-events:none}
+}
